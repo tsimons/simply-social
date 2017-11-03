@@ -1,0 +1,37 @@
+{
+  "name": "simply-social",
+  "version": "1.0.0",
+  "description": "Totally awesome social networking app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsimons/simply-social.git"
+  },
+  "keywords": [],
+  "author": "TJ Simons <t.simons88@gmail.com> (tsimons.github.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tsimons/simply-social/issues"
+  },
+  "homepage": "https://github.com/tsimons/simply-social#readme",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "next": "^4.1.4",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "redux-saga": "^0.16.0",
+    "reset-css": "^2.2.1"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1"
+  }
+}

@@ -12,7 +12,7 @@ import Profile from '../../layouts/Profile';
 
 import Post from '../../components/Post';
 
-const FeedView = ({ posts, profile, userId, likePost, focusPost }) => (
+const FeedView = ({ posts, profile, userId, likePost, focusPost, reply }) => (
     <Profile profile={profile}>
         <Head>
             <title>simplysocial | {profile.name}'s Feed</title>
@@ -20,7 +20,7 @@ const FeedView = ({ posts, profile, userId, likePost, focusPost }) => (
         <div className="posts">
             {posts.map(p => (
                 <div className="post-container">
-                    <Post key={p.post.message} post={p.post} author={p.author} liked={p.liked} like={likePost} layout="list" userId={userId} focusPost={focusPost} />
+                    <Post key={p.post.message} post={p.post} author={p.author} liked={p.liked} like={likePost} layout="list" userId={userId} focusPost={focusPost} reply={reply} />
                 </div>
             ))}
         </div>
@@ -61,7 +61,13 @@ const FeedView = ({ posts, profile, userId, likePost, focusPost }) => (
 const mapStateToProps = (state) => {
     return {
         posts: state.posts.data.map((post) => ({
-            post,
+            post: {
+                ...post,
+                replies: post.replies.map(post => ({
+                    ...post,
+                    author: getAuthor(state, post.author)
+                }))
+            },
             author: getAuthor(state, post.author),
             liked: post.likes.indexOf(state.user.data.profileId) > -1
         })),
@@ -72,6 +78,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     likePost: bindActionCreators(actions.likePost, dispatch),
+    reply: bindActionCreators(actions.replyToPost, dispatch),
     focusPost: bindActionCreators(actions.focusPost, dispatch)
 })
 

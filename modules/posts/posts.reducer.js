@@ -94,7 +94,7 @@ const actionHandlers = {
             if (p.id === payload.postId) {
                 const reply = {
                     message: payload.message,
-                    author: payload.authorId,
+                    author: payload.author,
                     timestamp: payload.timestamp
                 };
 

@@ -35,7 +35,7 @@ export default class Post extends Component {
         layout: oneOf([LIST, TILE, STANDALONE]),
         liked: bool,
         like: func,
-        replyToPost: func,
+        reply: func,
         userId: number,
         focusPost: func
     };
@@ -52,6 +52,10 @@ export default class Post extends Component {
             expanded: false,
             replyOpen: false
         }
+
+        this.expand = this.expand.bind(this);
+        this.reply = this.reply.bind(this);
+        this.sendReply = this.sendReply.bind(this);
     }
 
     expand() {
@@ -60,7 +64,16 @@ export default class Post extends Component {
 
     reply() {
         this.expand();
-        this.refs.reply.focus();
+    }
+
+    sendReply(e) {
+        e.preventDefault();
+        
+        const { post, reply, userId } = this.props;
+        const message = this.replyInput.value;
+
+        reply(post.id, message, userId);
+        this.replyInput.value = "";
     }
 
 
@@ -84,7 +97,7 @@ export default class Post extends Component {
                             </div>
                             {
                                 (layout === LIST || layout === STANDALONE) &&
-                                <div className="post__controls"><Controls reply={() => { }} like={() => like(post.id, userId)} timestamp={post.timestamp} /></div>
+                                <div className="post__controls"><Controls reply={this.reply} like={() => like(post.id, userId)} timestamp={post.timestamp} /></div>
                             }
                         </div>
 
@@ -117,7 +130,7 @@ export default class Post extends Component {
                     hasReplies &&
                     <div className="post__expand">
                         <a href="javascript:void(0)" className="post__expand-link" onClick={this.expand}>
-                            { expanded ? 'Expand' : 'Collapse' }
+                            {expanded ? 'Collapse ▴' : 'Expand ▾' }
                         </a>
                     </div>
 
@@ -133,13 +146,13 @@ export default class Post extends Component {
                 }
                 {
                     layout === TILE &&
-                    <div className="post__controls"><Controls reply={() => { }} like={() => like(post.id, userId)} timestamp={post.timestamp} /></div>
+                    <div className="post__controls"><Controls reply={this.reply} like={() => like(post.id, userId)} timestamp={post.timestamp} /></div>
                 }
                 {
                     expanded &&
-                    <div className="post__reply-form">
-                        <textarea className="post__reply-textarea" placeholder={`What would you like to say to ${post.author.name}?`}></textarea>
-                    </div>
+                    <form className="post__reply-form" onSubmit={this.sendReply}>
+                        <input ref={(input) => this.replyInput = input} className="post__reply-input" placeholder={`What would you like to say to ${author.name}?`} />
+                    </form>
                 }
 
                 <style jsx>{`
@@ -257,6 +270,21 @@ export default class Post extends Component {
                         order: 6
                     }
 
+                    .post__media + .post__expand {
+                        margin-top: 29px;
+                    }
+
+                    .post__expand {
+                        margin: 0 0 23px 84px;
+                    }
+
+                    .post__expand-link,
+                    .post__expand-link:link {
+                        text-decoration: none;
+                        color: #bec3cc;
+                        font-size: 12px;
+                    }
+
                     .post--standalone .post__media {
                         order: -1;
                         margin: -1px -1px 0 -1px;
@@ -265,6 +293,38 @@ export default class Post extends Component {
 
                     .post__media :global(video) {
                         width: 100%;
+                    }
+
+                    .post__reply-form {
+                        padding: 16px 25px;
+                        background: #f9fafb;
+                        border: 1px solid #dee1e5;
+                        border-radius: 0 0 4px 4px;
+                    }
+
+                    .post__reply-input {
+                        padding: 8px 14px;
+
+                        width: 100%;
+                        
+                        opacity: .6;
+                        
+                        border: 1px solid #dee1e5;
+                        border-radius: 4px;
+                        
+                        background: white;
+
+                        font-size: 14px;
+                        color: #bec3cc;
+                    }
+
+                    .post__reply-input::placeholder {
+                        color: #bec3cc;
+                    }
+
+                    .post__reply-input:focus {
+                        opacity: 1;
+                        outline: none;
                     }
                 `}</style>
             </div>

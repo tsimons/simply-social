@@ -8,10 +8,10 @@ import { getAuthor } from '../modules/profile/profile.selectors';
 import Modal from '../components/Modal';
 import Post from '../components/Post';
 
-const PostModal = ({ post, author, liked, layout, like, userId, onClose }) => (
+const PostModal = ({ post, author, liked, layout, like, userId, onClose, reply }) => (
     post ?
         <Modal onClose={onClose}>
-            <Post layout="standalone" post={post} author={author} liked={liked} like={like} userId={userId} />
+            <Post layout="standalone" post={post} author={author} liked={liked} like={like} userId={userId} reply={reply} />
         </Modal>
         :
         <div></div>
@@ -23,6 +23,10 @@ const mapStateToProps = (state) => {
         return {};
     }
     const post = getPost(state, state.posts.ui.focusedPost);
+    post.replies = post.replies.map(post => ({
+        ...post,
+        author: getAuthor(state, post.author)
+    }));
     const userId = state.user.data.profileId;
     
     return {
@@ -35,7 +39,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     like: actions.likePost,
-    onClose: actions.blurPost
+    onClose: actions.blurPost,
+    reply: actions.replyToPost
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostModal);

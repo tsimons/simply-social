@@ -4,7 +4,11 @@ export default [{
     timestamp: 1509709116614,
     image: '',
     video: '',
-    replies: [],
+    replies: [{
+        message: 'You know what to do folks!',
+        author: 1,
+        timestamp: 1509709117614
+    }],
     likes: [1],
     location: 'Minneapolis',
     id: 1

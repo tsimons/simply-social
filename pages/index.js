@@ -11,7 +11,7 @@ import Home from '../layouts/Home';
 import Post from '../components/Post';
 
 
-const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId, focusPost }) => (
+const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId, focusPost, reply }) => (
     <Home setPostLayout={setPostLayout} layout={layout} route="All Posts" addPost={addPost}>
         <Head>
             <title>simplysocial | All Posts</title>
@@ -19,7 +19,7 @@ const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId, foc
         <div className={`posts posts--${layout}`}>
             {posts.map(p => (
                 <div className="post__container" key={p.post.id}>
-                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} userId={userId} focusPost={focusPost} />
+                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} userId={userId} focusPost={focusPost} reply={reply} />
                 </div>
             ))}
         </div>
@@ -60,7 +60,10 @@ const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId, foc
 const mapStateToProps = (state) => {
     return {
         posts: state.posts.data.map((post) => ({
-            post,
+            post: {
+                ...post,
+                replies: post.replies.map((r) => ({ ...r, author: getAuthor(state, r.author) }))
+            },
             author: getAuthor(state, post.author),
             liked: post.likes.indexOf(state.user.data.profileId) > -1
         })),
@@ -71,6 +74,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     likePost: bindActionCreators(actions.likePost, dispatch),
+    reply: bindActionCreators(actions.replyToPost, dispatch),
     setPostLayout: bindActionCreators(actions.setPostLayout, dispatch),
     addPost: bindActionCreators(actions.addPost, dispatch),
     focusPost: bindActionCreators(actions.focusPost, dispatch)

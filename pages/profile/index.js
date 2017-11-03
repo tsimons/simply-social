@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper';
+
+import createStore from '../../modules/store';
 
 import Profile from '../../layouts/Profile';
 
@@ -50,4 +53,4 @@ const FeedView = () => (
     </Profile>
 );
 
-export default FeedView;
+export default withRedux(createStore)(FeedView);

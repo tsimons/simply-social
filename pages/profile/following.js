@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withRedux from 'next-redux-wrapper';
+
+import createStore from '../../modules/store';
 
 import Profile from '../../layouts/Profile';
 
@@ -51,4 +54,4 @@ FollowingView.PropTypes = {
 
 }
 
-export default FollowingView;
+export default withRedux(createStore)(FollowingView);

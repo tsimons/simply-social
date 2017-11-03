@@ -1,9 +1,14 @@
+import react from 'react';
+import withRedux from 'next-redux-wrapper';
+
+import createStore from '../../modules/store';
+
 import Home from '../../layouts/Home';
 import Post from '../../components/Post';
 
 import posts from '../../mockPosts';
 
-export default () => (
+const allPosts =  () => (
     <Home>
         <div className="posts posts--tile">
             {posts.map(p => (
@@ -41,3 +46,5 @@ export default () => (
         `}</style>
     </Home>
 );
+
+export default withRedux(createStore)(allPosts);

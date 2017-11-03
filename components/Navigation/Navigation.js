@@ -5,7 +5,7 @@ import Logo from '../Logo';
 import DropDown from '../DropDown';
 import NewPostModal from './NewPostModal';
 
-export default () => (
+export default ({ isPostModalOpen, openPostModal, closePostModal }) => (
     <div className="navigation">
         <div className="navigation__logo-container">
             <Link href="/home">
@@ -15,7 +15,7 @@ export default () => (
 
         <div className="navigation__tools">
             <div className="navigation__tools__new-message">
-                <a href="javascript:void(0)"><img src="/static/new-message.png" alt="new message"/></a>
+                <a href="javascript:void(0)" onClick={openPostModal}><img src="/static/new-message.png" alt="new message"/></a>
             </div>
             <div className="navigation__tools__search">
                 <input type="search" className="navigation__tools__search-input" />
@@ -35,7 +35,7 @@ export default () => (
                 </DropDown>
             </div>
 
-            {/* <NewPostModal onClose={() => {}} /> */}
+            {isPostModalOpen && <NewPostModal onClose={closePostModal} />}
         </div>
 
         <style jsx>{`

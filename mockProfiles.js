@@ -4,7 +4,10 @@ export default [
         image: 'https://cdn3.iconfinder.com/data/icons/black-easy/512/535106-user_512x512.png',
         postCount: 50,
         followersCount: 100,
-        followingCount: 1200
+        followingCount: 1200,
+        id: 1,
+        followers: [2, 3, 4, 5],
+        following: [2, 3, 4, 5, , 8]
     }, {
         name: 'Jessica Tuan',
         image: 'https://cdn3.iconfinder.com/data/icons/black-easy/512/535106-user_512x512.png',

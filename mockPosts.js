@@ -19,7 +19,7 @@ export default [{
     location: 'Duluth',
     id: 2
 }, {
-    message: 'When I finish this thing, I will be sooooo happy. Beers at http://www.badgerhillbrewing.com/ on Saturday!',
+    message: 'Its Friday! #letsparty',
     author: 2,
     timestamp: 1509709116614 - 20000000,
     image: '',
@@ -59,7 +59,7 @@ export default [{
     location: '',
     id: 6
 }, {
-    message: 'Maybe another video?',
+    message: 'My favorite magazine ever! #sensiblechuckle',
     author: 13,
     timestamp: 1509709116614 - 141486402,
     image: '',
@@ -78,4 +78,14 @@ export default [{
     likes: [],
     location: 'Vancouver, CA',
     id: 8
+}, {
+    message: 'I thought it was funny!',
+    author: 7,
+    timestamp: 1509709116614 - 142486402,
+    image: '',
+    video: 'https://zippy.gfycat.com/ClutteredSorrowfulAnole.mp4',
+    replies: [],
+    likes: [],
+    location: '',
+    id: 9
 }];

@@ -10,7 +10,7 @@ import Home from '../layouts/Home';
 import Post from '../components/Post';
 
 
-const allPosts = ({ posts, likePost }) => (
+const Photos = ({ posts, likePost }) => (
     <Home route="Photos">
         <div className={`posts posts--tile`}>
             {posts.map(p => (
@@ -43,7 +43,6 @@ const allPosts = ({ posts, likePost }) => (
                 width: 100%;
                 max-width: 375px;
                 margin: 0 0 25px 25px;
-                max-height: 500px;
             }
 
             .posts--tile .post__container:nth-child(3n + 1),
@@ -68,4 +67,4 @@ const mapDispatchToProps = (dispatch) => ({
     likePost: bindActionCreators(actions.likePost, dispatch),
 })
 
-export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(allPosts);
+export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(Photos);

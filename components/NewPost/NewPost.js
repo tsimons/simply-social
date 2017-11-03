@@ -104,7 +104,7 @@ export default class NewPost extends Component {
                 'new-post--video-open': showVideoUrl,
             })}>
                 <div className="new-post__text-container">
-                    <textarea className="new-post__text" placeholder="What's on your mind?" rows="2" onChange={this.setMessageText} value={this.state.message}></textarea>
+                    <input className="new-post__text" placeholder="What's on your mind?" onChange={this.setMessageText} value={this.state.message} />
                 </div>
 
                 <div className="new-post__addons">
@@ -139,13 +139,13 @@ export default class NewPost extends Component {
                         {
                             showImageUrl &&
                             <div className="new-post__addons-image-url">
-                                <input className="new-post__media-input" type="url" placeholder="Image url" onChange={this.setImageUrl} value={this.state.imageUrl} />
+                                <input className="new-post__media-input" type="url" placeholder="Image url" onChange={this.setImageUrl} value={this.state.imageUrl} placeholder="URL of your image" />
                             </div>
                         }
                         {
                             showVideoUrl &&
                             <div className="new-post__addons-video-url">
-                                <input className="new-post__media-input" type="url" placeholder="Video url" onChange={this.setVideoUrl} value={this.state.videoUrl} />
+                                <input className="new-post__media-input" type="url" placeholder="Video url" onChange={this.setVideoUrl} value={this.state.videoUrl} placeholder="URL of your video" />
                             </div>
                         }
                     </div>
@@ -169,7 +169,6 @@ export default class NewPost extends Component {
                     .new-post__text {
                         width: 100%;
                         padding: 6px 10px;
-                        resize: none;
                         
                         font-size: 30px;
                         font-weight: 100;
@@ -246,6 +245,16 @@ export default class NewPost extends Component {
                     }
                     .new-post--dark .new-post__media-link {
                         color: #70767f;
+                    }
+
+                    .new-post__media-link {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+
+                    .new-post__media-link img {
+                        margin: 0 9px 0 0;
                     }
 
                     .new-post__media-link:hover,

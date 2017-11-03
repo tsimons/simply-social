@@ -33,10 +33,10 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
-    "reset-css": "^2.2.1"
+    "reset-css": "^2.2.1",
+    "redux-devtools-extension": "^2.13.2"
   },
   "devDependencies": {
     "jest": "^21.2.1",
-    "redux-devtools-extension": "^2.13.2"
   }
 }

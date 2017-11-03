@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 const Header = ({ profile }) => (
     <div className="header">
         <div className="header__img-container">
-            <img src={profile.img} className="header__img" alt=""/>
+            <img src={profile.image} className="header__img" alt=""/>
         </div>
 
         <h1 className="header__name">{profile.name}</h1>

@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     openPostModal: actions.openPostModal,
-    closePostModal: actions.closePostModal
+    closePostModal: actions.closePostModal,
+    addPost: actions.addPost,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

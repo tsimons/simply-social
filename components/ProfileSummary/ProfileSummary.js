@@ -1,6 +1,8 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
 
+import formatNumber from '../../helpers/formatNumber';
+
 const ProfileSummary = ({ profile }) => (
     <div className="profile">
         <div className="profile__image">
@@ -9,13 +11,13 @@ const ProfileSummary = ({ profile }) => (
         <div className="profile__info">
             <p className="profile__name">{profile.name}</p>
             <div className="profile__details">
-                <span className="profile__post-count">{profile.postCount}</span>
-                <span className="profile__follower-count">{profile.followersCount}</span>
-                <span className="profile__following-count">{profile.followingCount}</span>
+                <span className="profile__post-count">{formatNumber(profile.posts.length)} posts</span>
+                <span className="profile__follower-count">{formatNumber(profile.followers.length)} Followers</span>
+                <span className="profile__following-count">{formatNumber(profile.following.length)} Following</span>
             </div>
         </div>
         <div className="profile__is-following">
-            <span className="profile__is-following-check">&#10003;</span>
+            <img src="/static/following-icon.png" alt=""/>
         </div>
 
         <style jsx>{`
@@ -24,6 +26,7 @@ const ProfileSummary = ({ profile }) => (
                 flex-direction: row;
                 align-items: center;
                 justify-content: stretch;
+                width: 100%;
 
                 padding: 25px 0;
 
@@ -69,21 +72,6 @@ const ProfileSummary = ({ profile }) => (
 
             .profile__is-following {
                 flex: 0 0 30px;
-            }
-
-            .profile__is-following-check {
-                display: inline-block;
-                padding: 10px 0;
-
-                height: 30px;
-                width: 30px;
-                
-                background: #00b286;
-                border-radius: 4px;
-
-                color: white;
-                text-align: center;
-                line-height: .7;
             }
         `}</style>
     </div>

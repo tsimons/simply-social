@@ -1,11 +1,12 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import Link from 'next/link';
+import classNames from 'classnames';
 
-const SubNavigation = ({ links }) => (
+const SubNavigation = ({ links, active }) => (
     <nav className="sub-navigation">
         {links.map(link => (
-            <Link key={link.href} href={link.href}><a className="sub-navigation-link">{ link.name }</a></Link>
+            <Link key={link.href} href={link.href}><a className={classNames('sub-navigation-link', { active: active === link.name })}>{ link.name }</a></Link>
         ))}
 
         <style jsx>{`

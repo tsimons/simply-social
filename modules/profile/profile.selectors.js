@@ -1,0 +1,1 @@
+export const getAuthor = (state, id) => state.profiles.data.filter((profile) => profile.id === id)[0];

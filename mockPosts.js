@@ -1,69 +1,81 @@
 export default [{
-    post: {
-        message: '@Test post, please ignore',
-        author: 123,
-        timestamp: Date.now(),
-        image: '',
-        video: '',
-        replies: null,
-        loves: null,
-        location: null
-    },
-    author: {
-        name: 'TJ Simons',
-        image: 'https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/p160x160/20228285_10156386606534638_4208836979691078674_n.jpg?oh=fbeb0943ca159be516c2eba0fd068152&oe=5A6A3C09',
-        isMe: true
-    },
-    liked: false
+    message: '@Test post, please ignore',
+    author: 123,
+    timestamp: 1509709116614,
+    image: '',
+    video: '',
+    replies: [],
+    likes: [1],
+    location: 'Minneapolis',
+    id: 1
 }, {
-    post: {
-        message: 'Pretty sick bridge in Duluth. #liftbridge',
-        author: 123,
-        timestamp: Date.now() - 100000,
-        image: 'https://c1.staticflickr.com/5/4385/36336677412_42f0fb3138_h.jpg',
-        video: '',
-        replies: null,
-        loves: null,
-        location: null
-    },
-    author: {
-        name: 'TJ Simons',
-        image: 'https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/p160x160/20228285_10156386606534638_4208836979691078674_n.jpg?oh=fbeb0943ca159be516c2eba0fd068152&oe=5A6A3C09',
-        isMe: false
-    },
-    liked: false
+    message: 'Pretty sick bridge in Duluth. #liftbridge',
+    author: 1,
+    timestamp: 1509709116614 - 100000,
+    image: 'https://c1.staticflickr.com/5/4385/36336677412_42f0fb3138_h.jpg',
+    video: '',
+    replies: [],
+    likes: [123],
+    location: 'Duluth',
+    id: 2
 }, {
-    post: {
-        message: 'When I finish this thing, I will be sooooo happy. Beers at http://www.badgerhillbrewing.com/ on Saturday!',
-        author: 123,
-        timestamp: Date.now() - 20000000,
-        image: '',
-        video: 'https://giant.gfycat.com/DearSoggyGrasshopper.webm',
-        replies: null,
-        loves: null,
-        location: null
-    },
-    author: {
-        name: 'TJ Simons',
-        image: 'https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/p160x160/20228285_10156386606534638_4208836979691078674_n.jpg?oh=fbeb0943ca159be516c2eba0fd068152&oe=5A6A3C09',
-        isMe: false
-    },
-    liked: false
+    message: 'When I finish this thing, I will be sooooo happy. Beers at http://www.badgerhillbrewing.com/ on Saturday!',
+    author: 2,
+    timestamp: 1509709116614 - 20000000,
+    image: '',
+    video: 'https://giant.gfycat.com/DearSoggyGrasshopper.webm',
+    replies: [],
+    likes: [],
+    location: '',
+    id: 3
 }, {
-    post: {
-        message: 'Wrap wrap baby!',
-        author: 123,
-        timestamp: Date.now(),
-        image: '',
-        video: '',
-        replies: null,
-        loves: null,
-        location: null
-    },
-    author: {
-        name: 'TJ Simons',
-        image: 'https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/p160x160/20228285_10156386606534638_4208836979691078674_n.jpg?oh=fbeb0943ca159be516c2eba0fd068152&oe=5A6A3C09',
-        isMe: true
-    },
-    liked: false
+    message: 'Text post. Please ignore',
+    author: 12,
+    timestamp: 1509709116614 - 126486402,
+    image: '',
+    video: '',
+    replies: [],
+    likes: [],
+    location: '',
+    id: 4
+}, {
+    message: 'Wrap wrap baby!',
+    author: 3,
+    timestamp: 1509709116614 - 126486402,
+    image: 'http://www.11points.com/images/iceice-vanilla.jpg',
+    video: '',
+    replies: [],
+    likes: [],
+    location: '',
+    id: 5
+}, {
+    message: 'We need more posts up on here!!!',
+    author: 10,
+    timestamp: 1509709116614 - 136486402,
+    image: '',
+    video: '',
+    replies: [],
+    likes: [],
+    location: '',
+    id: 6
+}, {
+    message: 'Maybe another video?',
+    author: 13,
+    timestamp: 1509709116614 - 141486402,
+    image: '',
+    video: 'https://zippy.gfycat.com/InsignificantFocusedHornedviper.mp4',
+    replies: [],
+    likes: [123, 1],
+    location: '',
+    id: 7
+}, {
+    message: 'Hiking above the clouds. #grousemountain',
+    author: 123,
+    timestamp: 1509709116614 - 141586402,
+    image: 'https://c1.staticflickr.com/9/8413/30130153086_e87bc6ecc0_b.jpg',
+    video: '',
+    replies: [],
+    likes: [],
+    location: 'Vancouver, CA',
+    id: 8
 }];

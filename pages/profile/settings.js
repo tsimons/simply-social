@@ -4,16 +4,18 @@ import withRedux from 'next-redux-wrapper';
 import { bindActionCreators } from 'redux'
 
 import createStore from '../../modules/store';
-
+import { getAuthor } from '../../modules/profile/profile.selectors';
 import Base from '../../layouts/Base';
 
 import Slider from '../../components/Slider';
 import RadioButton from '../../components/RadioButton';
 
-import { actions } from '../../modules/user';
+import { actions as userActions } from '../../modules/user';
+import { actions as profileActions } from '../../modules/profile';
 
 const Settings = ({
     user,
+    profile,
     setProfileImg,
     setName,
     setEmail,
@@ -34,16 +36,16 @@ const Settings = ({
                 <h2>Account</h2>
                 <div className="settings__account">
                     <div className="settings__account-image-container">
-                        <img src="https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/p160x160/20228285_10156386606534638_4208836979691078674_n.jpg?oh=fbeb0943ca159be516c2eba0fd068152&oe=5A6A3C09" alt=""/>
+                        <img src={profile.image} alt=""/>
                         <button className="settings__account-change-image-btn">change</button>
                     </div>
                     <div className="settings__account-form-container">
                         <div className="settings__account-form-row">
-                            <input type="text" value={user.data.name} onChange={(e) => setName(e.target.value)} />
+                            <input type="text" value={profile.name} onChange={(e) => setName({ profileId: user.data.profileId, name: e.target.value })} />
                             <img className="settings__account-icon" src="/static/user-icon.png" alt=""/>
                         </div>
                         <div className="settings__account-form-row">
-                            <input type="email" value={user.data.email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" value={profile.email} onChange={(e) => setEmail({ profileId: user.data.profileId, email: e.target.value })} />
                             <img className="settings__account-icon" src="/static/mail-icon.png" alt=""/>
                         </div>
                         <div className="settings__account-form-row">
@@ -242,24 +244,23 @@ const Settings = ({
 );
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    profile: getAuthor(state, state.user.data.profileId)
 });
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setProfileImg: bindActionCreators(actions.setProfileImg, dispatch),
-        setName: bindActionCreators(actions.setName, dispatch),
-        setEmail: bindActionCreators(actions.setEmail, dispatch),
-        setEmailOnFav: bindActionCreators(actions.setEmailOnFav, dispatch),
-        setEmailOnMention: bindActionCreators(actions.setEmailOnMention, dispatch),
-        setEmailOnReply: bindActionCreators(actions.setEmailOnReply, dispatch),
-        setEmailOnFollow: bindActionCreators(actions.setEmailOnFollow, dispatch),
-        setFollowPreference: bindActionCreators(actions.setFollowPreference, dispatch),
-        setAddLocationPost: bindActionCreators(actions.setAddLocationPost, dispatch),
-        setDiscoverableEmail: bindActionCreators(actions.setDiscoverableEmail, dispatch),
-        setCustomAds: bindActionCreators(actions.setCustomAds, dispatch)
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    setProfileImg: bindActionCreators(profileActions.setProfileImg, dispatch),
+    setName: bindActionCreators(profileActions.setName, dispatch),
+    setEmail: bindActionCreators(profileActions.setEmail, dispatch),
+    setEmailOnFav: bindActionCreators(userActions.setEmailOnFav, dispatch),
+    setEmailOnMention: bindActionCreators(userActions.setEmailOnMention, dispatch),
+    setEmailOnReply: bindActionCreators(userActions.setEmailOnReply, dispatch),
+    setEmailOnFollow: bindActionCreators(userActions.setEmailOnFollow, dispatch),
+    setFollowPreference: bindActionCreators(userActions.setFollowPreference, dispatch),
+    setAddLocationPost: bindActionCreators(userActions.setAddLocationPost, dispatch),
+    setDiscoverableEmail: bindActionCreators(userActions.setDiscoverableEmail, dispatch),
+    setCustomAds: bindActionCreators(userActions.setCustomAds, dispatch)
+})
 
 
 export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(Settings);

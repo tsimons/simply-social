@@ -1,17 +1,20 @@
 import { createActions } from 'redux-actions'
+import posts from '../../mockPosts';
 
 const ADD_POST = 'ADD_POST';
 const LIKE_POST = 'LIKE_POST';
 const REPLY_TO_POST = 'LIKE_POST';
 const OPEN_POST_MODAL = 'OPEN_POST_MODAL';
 const CLOSE_POST_MODAL = 'CLOSE_POST_MODAL';
+const SET_POST_LAYOUT = 'SET_POST_LAYOUT';
 
 export const actionConstants = {
     ADD_POST,
     LIKE_POST,
     REPLY_TO_POST,
     OPEN_POST_MODAL,
-    CLOSE_POST_MODAL
+    CLOSE_POST_MODAL,
+    SET_POST_LAYOUT
 };
 
 export const actions = createActions({
@@ -24,13 +27,9 @@ export const actions = createActions({
         timestamp: Date.now()
     }),
     [OPEN_POST_MODAL]: undefined,
-    [CLOSE_POST_MODAL]: undefined
+    [CLOSE_POST_MODAL]: undefined,
+    [SET_POST_LAYOUT]: undefined
 });
-
-const initialState = {
-    ui: {},
-    data: []
-};
 
 const actionHandlers = {
     [ADD_POST]: (state, { payload }) => ({
@@ -94,8 +93,22 @@ const actionHandlers = {
             isPostModalOpen: false
         },
         data: [...state.data]
+    }),
+    [SET_POST_LAYOUT]: (state, { payload }) => ({
+        ui: {
+            ...state.ui,
+            layout: payload
+        },
+        data: [ ...state.data ]
     })
-}
+};
+
+const initialState = {
+    ui: {
+        layout: 'list'
+    },
+    data: posts
+};
 
 export default function postsReducer(state = initialState, action) {
     const handler = actionHandlers[action.type];

@@ -93,7 +93,7 @@ export default class Post extends Component {
                         {
                             liked &&
                             <div className="post__liked">
-                                liked
+                                <img src="/static/heart-icon-green.png" alt=""/> Liked
                             </div>
                         }
                     </div>
@@ -210,6 +210,23 @@ export default class Post extends Component {
                     .post__header .post__controls {
                         text-align: left;
                         padding: 0;
+                    }
+
+                    .post__liked {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+
+                        font-size: 12px;
+                        color: #00b286;
+                    }
+
+                    .post__liked img {
+                        margin: 0 6px 0 0;
+                    }
+
+                    .post__media {
+                        text-align: center;
                     }
                 `}</style>
             </div>

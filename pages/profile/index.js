@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import { bindActionCreators } from 'redux';
 
 import createStore from '../../modules/store';
+import { actions } from '../../modules/posts';
+import { getAuthor } from '../../modules/profile/profile.selectors';
 
 import Profile from '../../layouts/Profile';
 
 import Post from '../../components/Post';
 
-import posts from '../../mockPosts';
-
-const FeedView = () => (
-    <Profile>
+const FeedView = ({ posts, profile }) => (
+    <Profile profile={profile}>
         <div className="posts">
             {posts.map(p => (
                 <div className="post-container">
@@ -53,4 +54,21 @@ const FeedView = () => (
     </Profile>
 );
 
-export default withRedux(createStore)(FeedView);
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        posts: state.posts.data.map((post) => ({
+            post,
+            author: getAuthor(state, post.author),
+            liked: post.likes.indexOf(state.user.profileId > -1)
+        })),
+        layout: state.posts.ui.layout,
+        profile: getAuthor(state, state.user.data.profileId)
+    }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    changeLayout: bindActionCreators(actions.setPostLayout, dispatch)
+})
+
+export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(FeedView);

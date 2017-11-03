@@ -1,28 +1,18 @@
 import React from 'react';
 import { node } from 'prop-types';
 
+import formatNumber from '../../helpers/formatNumber';
+
 import Base from '../Base';
 
 import SubNavigation from '../../components/SubNavigation';
 
 import Header from './Header';
 
-const defaultProfile = {
-    name: 'TJ Simons',
-    bio: 'Engineer in the Twin Cities Area',
-    site: 'http://tjsimons.com',
-    img: 'https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/p160x160/20228285_10156386606534638_4208836979691078674_n.jpg?oh=fbeb0943ca159be516c2eba0fd068152&oe=5A6A3C09',
-    followersCount: 2542,
-    followingCount: 517
-};
-
-const thirdDigitPattern = /\B(?=(\d{3})+(?!\d))/g;
-const formatNumber = (num = 1) => num.toString().replace(thirdDigitPattern, ",");
-
 
 const ProfileLayout = ({ profile, children }) => {
-    const followersCount = formatNumber(profile.followersCount);
-    const followingCount = formatNumber(profile.followingCount);
+    const followersCount = formatNumber(profile.followers.length);
+    const followingCount = formatNumber(profile.following.length);
     
     const links = [{
         href: '/profile',
@@ -67,8 +57,5 @@ ProfileLayout.displayName = 'ProfileLayout';
 ProfileLayout.propTypes = {
     children: node.isRequired
 };
-ProfileLayout.defaultProps = {
-    profile: defaultProfile,
-}
 
 export default ProfileLayout;

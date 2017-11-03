@@ -1,19 +1,21 @@
 import react from 'react';
 import withRedux from 'next-redux-wrapper';
+import { bindActionCreators } from 'redux';
 
 import createStore from '../modules/store';
+import { actions } from '../modules/posts';
+import { getAuthor } from '../modules/profile/profile.selectors';
 
 import Home from '../layouts/Home';
 import Post from '../components/Post';
 
-import posts from '../mockPosts';
 
-const allPosts =  () => (
-    <Home>
-        <div className="posts posts--tile">
+const allPosts = ({ layout, posts, likePost, setPostLayout, addPost }) => (
+    <Home setPostLayout={setPostLayout} layout={layout} route="All Posts" addPost={addPost}>
+        <div className={`posts posts--${layout}`}>
             {posts.map(p => (
-                <div className="post-container">
-                    <Post key={p.post.message} post={p.post} author={p.author} liked={p.liked} layout="tile" />
+                <div className="post__container" key={p.post.id}>
+                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} />
                 </div>
             ))}
         </div>
@@ -33,18 +35,40 @@ const allPosts =  () => (
                 max-width: 1199px;
             }
 
-            .posts--tile .post-container {
+            .post__container {
+                width: 100%;
+            }
+
+            .posts--tile .post__container {
+                width: 100%;
                 max-width: 375px;
                 margin: 0 0 25px 25px;
                 max-height: 500px;
             }
 
-            .posts--tile .post-container:nth-child(3n + 1),
-            .posts--tile .post-container:first-child {
+            .posts--tile .post__container:nth-child(3n + 1),
+            .posts--tile .post__container:first-child {
                 margin-left: 0;
             }
         `}</style>
     </Home>
 );
 
-export default withRedux(createStore)(allPosts);
+const mapStateToProps = (state) => {
+    return {
+        posts: state.posts.data.map((post) => ({
+            post,
+            author: getAuthor(state, post.author),
+            liked: post.likes.indexOf(state.user.profileId) > -1
+        })),
+        layout: state.posts.ui.layout
+    }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    likePost: bindActionCreators(actions.likePost, dispatch),
+    setPostLayout: bindActionCreators(actions.setPostLayout, dispatch),
+    addPost: bindActionCreators(actions.addPost, dispatch)
+})
+
+export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(allPosts);

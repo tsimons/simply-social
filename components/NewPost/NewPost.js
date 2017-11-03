@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { oneOf, func, number } from 'prop-types';
 import classNames from 'classnames';
 
 export default class NewPost extends Component {
     static propTypes = {
-        theme: PropTypes.oneOf(['light', 'dark'])
+        theme: oneOf(['light', 'dark']),
+        author: number,
+        addPost: func
     };
 
     static defaultProps = {
@@ -17,12 +19,19 @@ export default class NewPost extends Component {
         super(props);
         this.state = {
             showImageUrl: false,
-            showVideoUrl: false
+            showVideoUrl: false,
+            message: '',
+            imageUrl: '',
+            videoUrl: ''
         };
 
         // Bind functions now to avoid creating functions in the render method
         this.clickAddImage = this.clickAddImage.bind(this);
         this.clickAddVideo = this.clickAddVideo.bind(this);
+        this.addPost = this.addPost.bind(this);
+        this.setMessageText = this.setMessageText.bind(this);
+        this.setImageUrl = this.setImageUrl.bind(this);
+        this.setVideoUrl = this.setVideoUrl.bind(this);
     }
 
     clickAddImage() {
@@ -39,12 +48,44 @@ export default class NewPost extends Component {
         }));
     }
 
+    setImageUrl(e) {
+        const imageUrl = e.target.value;
+        this.setState(() => ({
+            imageUrl
+        }));
+    }
+
+    setVideoUrl(e) {
+        const videoUrl = e.target.value;
+        this.setState(() => ({
+            videoUrl
+        }));
+    }
+    
+    setMessageText(e) {
+        // make sure to grab the value ahead of time since the event may change by the time the setState call goes through
+        const message = e.target.value;
+        this.setState(() => ({
+            message
+        }));
+    }
+
+    addPost(e) {
+        e.preventDefault();
+        this.props.addPost({
+            message: this.state.message,
+            image: this.state.imageUrl,
+            video: this.state.videoUrl,
+            author: this.props.author
+        })
+    }
+
     render() {
-        const { theme } = this.props;
+        const { theme, addPost } = this.props;
         const { showImageUrl, showVideoUrl } = this.state;
 
         return (
-            <div className={classNames('new-post', {
+            <form onSubmit={this.addPost} className={classNames('new-post', {
                 'new-post--light': theme === 'light',
                 'new-post--dark': theme === 'dark',
                 'new-post--media-open': showImageUrl || showVideoUrl,
@@ -52,7 +93,7 @@ export default class NewPost extends Component {
                 'new-post--video-open': showVideoUrl,
             })}>
                 <div className="new-post__text-container">
-                    <textarea className="new-post__text" placeholder="What's on your mind?" rows="2"></textarea>
+                    <textarea className="new-post__text" placeholder="What's on your mind?" rows="2" onChange={this.setMessageText}></textarea>
                 </div>
 
                 <div className="new-post__addons">
@@ -87,13 +128,13 @@ export default class NewPost extends Component {
                         {
                             showImageUrl &&
                             <div className="new-post__addons-image-url">
-                                <input className="new-post__media-input" type="url" placeholder="Image url" />
+                                <input className="new-post__media-input" type="url" placeholder="Image url" onChange={this.setImageUrl} />
                             </div>
                         }
                         {
                             showVideoUrl &&
                             <div className="new-post__addons-video-url">
-                                <input className="new-post__media-input" type="url" placeholder="Video url" />
+                                <input className="new-post__media-input" type="url" placeholder="Video url" onChange={this.setVideoUrl} />
                             </div>
                         }
                     </div>
@@ -259,7 +300,7 @@ export default class NewPost extends Component {
                     }
 
                 `}</style>
-            </div>
+            </form>
         );
     }
 }

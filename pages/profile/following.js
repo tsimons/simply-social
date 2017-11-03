@@ -13,7 +13,7 @@ import profiles from '../../mockProfiles';
 const FollowingView = () => (
     <Profile>
         <div className="posts">
-            {profiles.map((p) => <ProfileSummary profile={p} />)}
+            {profiles.map((p) => <ProfileSummary key={p.id} profile={p} />)}
         </div>
 
         <style jsx>{`

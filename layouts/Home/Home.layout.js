@@ -1,10 +1,11 @@
 import React from 'react';
 import { node } from 'prop-types';
 import Link from 'next/link';
+import classNames from 'classnames';
 
 import Base from '../Base';
 
-import NewPost from '../../components/NewPost';
+import NewPost from '../../containers/NewPostContainer';
 import SubNavigation from '../../components/SubNavigation';
 
 const links = [
@@ -20,21 +21,32 @@ const links = [
     }
 ];
 
-const HomeLayout = ({ children }) => (
+const HomeLayout = ({ children, setPostLayout, layout, route, addPost }) => (
     <Base>
         <div className="home-layout__header">
             <div className="home-layout__new-post">
-                <NewPost />
+                <NewPost theme="light" />
             </div>
             <div className="home-layout__sub-nav-container">
                 <div className="home-layout__sub-navigation">
-                    <SubNavigation links={links} />
+                    <SubNavigation links={links} active={route} />
                 </div>
 
-                <ul className="home-layout__layout-btns">
-                    <li><a className="home-layout__layout-btn" href="javascript:void(0)"><img src="/static/list-icon.png" alt="list layout"/></a></li>
-                    <li><a className="home-layout__layout-btn" href="javascript:void(0)"><img src="/static/tile-icon.png" alt="tile layout"/></a></li>
-                </ul>
+                {
+                    setPostLayout &&
+                    <ul className="home-layout__layout-btns">
+                        <li>
+                            <a className={classNames("home-layout__layout-btn", { active: layout === 'list' })} href="javascript:void(0)" onClick={() => setPostLayout('list')}>
+                                <img src="/static/list-icon.png" alt="list layout" />
+                            </a>
+                        </li>
+                        <li>
+                            <a className={classNames("home-layout__layout-btn", { active: layout === 'tile' })} href="javascript:void(0)" onClick={() => setPostLayout('tile')}>
+                                <img src="/static/tile-icon.png" alt="tile layout" />
+                            </a>
+                        </li>
+                    </ul>
+                }
             </div>
 
         </div>
@@ -72,6 +84,17 @@ const HomeLayout = ({ children }) => (
             }
             .home-layout__layout-btns li {
                 margin: 0 0 0 16px;
+            }
+            .home-layout__layout-btn {
+                opacity: .5;
+                transition: opacity .35s;
+            }
+            .home-layout__layout-btn:hover,
+            .home-layout__layout-btn:active {
+                opacity: .8;
+            }
+            .home-layout__layout-btn.active {
+                opacity: 1;
             }
 
             .home-layout__sub-nav-container {

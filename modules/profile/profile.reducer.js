@@ -1,24 +1,69 @@
 import { createActions } from 'redux-actions'
+import mockProfiles from '../../mockProfiles';
 
-export const FOLLOW_PROFILE = 'FOLLOW_PROFILE';
+const FOLLOW_PROFILE = 'FOLLOW_PROFILE';
+const SET_PROFILE_IMG = 'SET_PROFILE_IMG';
+const SET_NAME = 'SET_NAME';
+const SET_EMAIL = 'SET_EMAIL';
 
 export const actionConstants = {
-    FOLLOW_PROFILE
+    FOLLOW_PROFILE,
+    SET_PROFILE_IMG,
+    SET_NAME,
+    SET_EMAIL
 };
 
 export const actions = createActions({
-    [FOLLOW_PROFILE]: (followerId, foloweeId) => ({ followerId, foloweeId })
+    [FOLLOW_PROFILE]: (followerId, foloweeId) => ({ followerId, foloweeId }),
+    [SET_PROFILE_IMG]: undefined,
+    [SET_NAME]: undefined,
+    [SET_EMAIL]: undefined
 });
 
 
 const actionHandlers = {
+    [SET_PROFILE_IMG]: (state, { payload }) => ({
+        ui: { ...state.ui },
+        data: state.data.map((profile) => {
+            if (profile.id === payload.profileId) {
+                return {
+                    ...profile,
+                    image: payload.image
+                }
+            }
+            return { ...profile };
+        })
+    }),
+    [SET_NAME]: (state, { payload }) => ({
+        ui: { ...state.ui },
+        data: state.data.map((profile) => {
+            if (profile.id === payload.profileId) {
+                return {
+                    ...profile,
+                    name: payload.name
+                }
+            }
+            return { ...profile };
+        })
+    }),
+    [SET_EMAIL]: (state, { payload }) => ({
+        ui: { ...state.ui },
+        data: state.data.map((profile) => {
+            if (profile.id === payload.profileId) {
+                return {
+                    ...profile,
+                    email: payload.email
+                }
+            }
+            return { ...profile };
+        })
+    }),
     [FOLLOW_PROFILE] : (state, { payload }) => ({
         ui: { ...state.ui },
         data: state.date.map((profile) => {
             if (profile.id === payload.followeeId) {
                 return {
                     ...profile,
-                    followerCount: followerCount + 1,
                     followers: [
                         ...profile.followers,
                         payload.followerId
@@ -29,7 +74,6 @@ const actionHandlers = {
             if (profile.id === payload.followerId) {
                 return {
                     ...profile,
-                    followingCount: followingCount + 1,
                     following: [
                         ...profile.following,
                         payload.followeeId
@@ -39,15 +83,15 @@ const actionHandlers = {
 
             return { ...profile };
         })
-    }
-});
+    })
+};
 
 const initialState = {
     ui: {},
-    data: []
+    data: mockProfiles
 };
 export default function profileReducer(state = initialState, action) {
-    const handler = actionsHandlers[action.type];
+    const handler = actionHandlers[action.type];
 
     if (handler) {
         return Object.freeze(handler(state, action));

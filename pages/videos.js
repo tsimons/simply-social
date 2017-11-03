@@ -1,12 +1,12 @@
 import React from 'react';
 import withRedux from 'next-redux-wrapper';
 
-import createStore from '../../modules/store';
+import createStore from '../modules/store';
 
-import Home from '../../layouts/Home';
-import Post from '../../components/Post';
+import Home from '../layouts/Home';
+import Post from '../components/Post';
 
-import posts from '../../mockPosts';
+import posts from '../mockPosts';
 
 const Videos = () => (
     <Home>

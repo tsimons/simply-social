@@ -50,6 +50,9 @@ export default ({ isPostModalOpen, openPostModal, closePostModal }) => (
                 
                 background: #262728;
             }
+            .navigation__logo-container {
+                flex: 0 0 137px;
+            }
 
             .navigation__tools {
                 display: flex;
@@ -128,15 +131,16 @@ export default ({ isPostModalOpen, openPostModal, closePostModal }) => (
             .navigation__tools__profile-link,
             .navigation__tools__profile-link:link {
                 display: inline-block;
-                width: 150px;
+                width: 175px;
 
-                padding: 6px 32px;
+                padding: 8px 45px;
 
-                font-size: 12px;
+                font-size: 14px;
                 color: #747c83;
                 text-decoration: none;
 
                 transition: color .15s;
+                cursor: pointer;
             }
 
             .navigation__tools__profile-link:hover,

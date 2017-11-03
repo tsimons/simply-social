@@ -8,6 +8,7 @@ const BaseLayout =  ({ children }) => (
     <div className="base-layout">
         <Head>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         </Head>
 
         <div className="base-layout__navigation">
@@ -24,15 +25,12 @@ const BaseLayout =  ({ children }) => (
 
         <style jsx global>{`
             body,
-            html,
-            body > *,
-            body > * > *,
-            body > * > * > * {
+            html {
                 height: 100%;
             }
 
-            body {
-                font-family: "Open Sans";
+            body, p, a, input, textarea, h1, h2, h3, h4, h5, h6 {
+                font-family: 'Open Sans';
             }
 
             * {

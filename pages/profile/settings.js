@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import { bindActionCreators } from 'redux'
 
 import createStore from '../../modules/store';
 
@@ -9,7 +10,22 @@ import Base from '../../layouts/Base';
 import Slider from '../../components/Slider';
 import RadioButton from '../../components/RadioButton';
 
-const FeedView = () => (
+import { actions } from '../../modules/user';
+
+const Settings = ({
+    user,
+    setProfileImg,
+    setName,
+    setEmail,
+    setEmailOnFav,
+    setEmailOnMention,
+    setEmailOnReply,
+    setEmailOnFollow,
+    setFollowPreference,
+    setAddLocationPost,
+    setDiscoverableEmail,
+    setCustomAds
+}) => (
     <Base>
         <div className="settings">
             <h1>Settings</h1>
@@ -23,16 +39,20 @@ const FeedView = () => (
                     </div>
                     <div className="settings__account-form-container">
                         <div className="settings__account-form-row">
-                            <input type="text" value="TJ Simons" />
+                            <input type="text" value={user.data.name} onChange={(e) => setName(e.target.value)} />
+                            <img className="settings__account-icon" src="/static/user-icon.png" alt=""/>
                         </div>
                         <div className="settings__account-form-row">
-                            <input type="email" value="t.simons88@gmail.com" />
+                            <input type="email" value={user.data.email} onChange={(e) => setEmail(e.target.value)} />
+                            <img className="settings__account-icon" src="/static/mail-icon.png" alt=""/>
                         </div>
                         <div className="settings__account-form-row">
                             <input type="password" />
+                            <img className="settings__account-icon" src="/static/lock-icon.png" alt=""/>
                         </div>
                         <div className="settings__account-form-row">
                             <input type="password"  />
+                            <img className="settings__account-icon" src="/static/lock-icon.png" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -40,16 +60,16 @@ const FeedView = () => (
                 <div className="settings__notifications">
                     <h2>Notifications</h2>
                     <div className="settings__notifications-row">
-                        <Slider /> <span>email me when my posts are marked as favorites</span>
+                        <Slider checked={user.data.emailOnFavorite} onClick={() => setEmailOnFav(!user.data.emailOnFavorite)} /> <span>email me when my posts are marked as favorites</span>
                     </div>
                     <div className="settings__notifications-row">
-                        <Slider /> <span>email me when I'm mentioned</span>
+                        <Slider checked={user.data.emailOnMention} onClick={() => setEmailOnMention(!user.data.emailOnMention)} /> <span>email me when I'm mentioned</span>
                     </div>
                     <div className="settings__notifications-row">
-                        <Slider /> <span>email me when I get a reply</span>
+                        <Slider checked={user.data.emailOnReply} onClick={() => setEmailOnReply(!user.data.emailOnReply)} /> <span>email me when I get a reply</span>
                     </div>
                     <div className="settings__notifications-row">
-                        <Slider /> <span>email me when someone follows me</span>
+                        <Slider checked={user.data.emailOnFollow} onClick={() => setEmailOnFollow(!user.data.emailOnFollow)} /> <span>email me when someone follows me</span>
                     </div>
                 </div>
 
@@ -57,28 +77,28 @@ const FeedView = () => (
                     <h2>Privacy</h2>
                     <div className="settings__privacy-group">
                         <div className="settings__privacy-row">
-                            <RadioButton checked /> <span>allow anyone to tag me</span>
+                            <RadioButton checked={user.data.followPreference === 'anyone'} onClick={() => setFollowPreference('anyone')} /> <span>allow anyone to tag me</span>
                         </div>
                         <div className="settings__privacy-row">
-                            <RadioButton checked /> <span>only allow people I follow to tag me</span>
+                            <RadioButton checked={user.data.followPreference === 'followers'} onClick={() => setFollowPreference('followers')} /> <span>only allow people I follow to tag me</span>
                         </div>
                         <div className="settings__privacy-row">
-                            <RadioButton checked /> <span>don't allow anyone to tag me</span>
-                        </div>
-                    </div>
-                    <div className="settings__privacy-group">
-                        <div className="settings__privacy-row">
-                            <RadioButton checked /> <span>add a location to my posts</span>
+                            <RadioButton checked={user.data.followPreference === 'nobody'} onClick={() => setFollowPreference('nobody')} /> <span>don't allow anyone to tag me</span>
                         </div>
                     </div>
                     <div className="settings__privacy-group">
                         <div className="settings__privacy-row">
-                            <RadioButton checked /> <span>let others find me by email address</span>
+                            <RadioButton checked={user.data.addLocationToPost} onClick={() => setAddLocationPost(!user.data.addLocationToPost)} /> <span>add a location to my posts</span>
                         </div>
                     </div>
                     <div className="settings__privacy-group">
                         <div className="settings__privacy-row">
-                            <RadioButton checked /> <span>tailor ads based on my information</span>
+                            <RadioButton checked={user.data.discoverableByEmail} onClick={() => setDiscoverableEmail(!user.data.discoverableByEmail)} /> <span>let others find me by email address</span>
+                        </div>
+                    </div>
+                    <div className="settings__privacy-group">
+                        <div className="settings__privacy-row">
+                            <RadioButton checked={user.data.customAds} onClick={() => setCustomAds(!user.data.customAds)} /> <span>tailor ads based on my information</span>
                         </div>
                     </div>
                 </div>
@@ -165,11 +185,12 @@ const FeedView = () => (
 
             .settings__account-form-row {
                 margin-bottom: 20px;
+                position: relative;
             }
 
             .settings__account input {
                 width: 100%;
-                padding: 14px 14px 9px 40px;
+                padding: 9px 14px 9px 40px;
 
                 border: 1px solid #bec3cc;
                 border-radius: 4px;
@@ -182,6 +203,12 @@ const FeedView = () => (
 
             .settings__account input:focus {
                 outline: none;
+            }
+
+            .settings__account-icon {
+                position: absolute;
+                top: 13px;
+                left: 13px;
             }
 
             .settings__notifications-row {
@@ -214,4 +241,25 @@ const FeedView = () => (
     </Base>
 );
 
-export default withRedux(createStore)(FeedView);
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setProfileImg: bindActionCreators(actions.setProfileImg, dispatch),
+        setName: bindActionCreators(actions.setName, dispatch),
+        setEmail: bindActionCreators(actions.setEmail, dispatch),
+        setEmailOnFav: bindActionCreators(actions.setEmailOnFav, dispatch),
+        setEmailOnMention: bindActionCreators(actions.setEmailOnMention, dispatch),
+        setEmailOnReply: bindActionCreators(actions.setEmailOnReply, dispatch),
+        setEmailOnFollow: bindActionCreators(actions.setEmailOnFollow, dispatch),
+        setFollowPreference: bindActionCreators(actions.setFollowPreference, dispatch),
+        setAddLocationPost: bindActionCreators(actions.setAddLocationPost, dispatch),
+        setDiscoverableEmail: bindActionCreators(actions.setDiscoverableEmail, dispatch),
+        setCustomAds: bindActionCreators(actions.setCustomAds, dispatch)
+    }
+}
+
+
+export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(Settings);

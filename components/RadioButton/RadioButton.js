@@ -5,7 +5,7 @@ const RadioButton = ({ checked, onClick }) => (
     <span className={classNames('radio-button', {
         on: checked,
         off: !checked
-    })}>
+    })} onClick={onClick}>
         <span className="radio-button__circle"></span>
         <style jsx>{`
             .radio-button {
@@ -30,7 +30,7 @@ const RadioButton = ({ checked, onClick }) => (
             }
 
             .off .radio-button__circle {
-                disply: none;
+                display: none;
             }
         `}</style>
     </span>

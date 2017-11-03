@@ -6,7 +6,7 @@ const Slider = ({ checked, onClick }) => (
     <span className={classNames('slider-container', {
         on: checked,
         off: !checked
-    })}>
+    })} onClick={onClick}>
         <span className="slider-thumb"></span>
 
         <style jsx>{`

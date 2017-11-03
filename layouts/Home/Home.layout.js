@@ -9,13 +9,13 @@ import SubNavigation from '../../components/SubNavigation';
 
 const links = [
     {
-        href: '/home',
+        href: '/',
         name: 'All Posts'
     }, {
-        href: '/home/photos',
+        href: '/photos',
         name: 'Photos'
     }, {
-        href: '/home/videos',
+        href: '/videos',
         name: 'Videos'
     }
 ];

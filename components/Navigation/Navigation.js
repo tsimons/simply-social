@@ -8,7 +8,7 @@ import NewPostModal from './NewPostModal';
 export default ({ isPostModalOpen, openPostModal, closePostModal }) => (
     <div className="navigation">
         <div className="navigation__logo-container">
-            <Link href="/home">
+            <Link href="/">
                 <a><Logo /></a>
             </Link>
         </div>

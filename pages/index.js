@@ -43,7 +43,6 @@ const allPosts = ({ layout, posts, likePost, setPostLayout, addPost }) => (
                 width: 100%;
                 max-width: 375px;
                 margin: 0 0 25px 25px;
-                max-height: 500px;
             }
 
             .posts--tile .post__container:nth-child(3n + 1),

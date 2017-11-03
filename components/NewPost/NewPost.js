@@ -77,7 +77,18 @@ export default class NewPost extends Component {
             image: this.state.imageUrl,
             video: this.state.videoUrl,
             author: this.props.author
-        })
+        });
+        this.reset();
+    }
+
+    reset() {
+        this.setState(() => ({
+            message: '',
+            imageUrl: '',
+            videoUrl: '',
+            showImageUrl: false,
+            showVideoUrl: false
+        }));
     }
 
     render() {
@@ -93,7 +104,7 @@ export default class NewPost extends Component {
                 'new-post--video-open': showVideoUrl,
             })}>
                 <div className="new-post__text-container">
-                    <textarea className="new-post__text" placeholder="What's on your mind?" rows="2" onChange={this.setMessageText}></textarea>
+                    <textarea className="new-post__text" placeholder="What's on your mind?" rows="2" onChange={this.setMessageText} value={this.state.message}></textarea>
                 </div>
 
                 <div className="new-post__addons">
@@ -128,13 +139,13 @@ export default class NewPost extends Component {
                         {
                             showImageUrl &&
                             <div className="new-post__addons-image-url">
-                                <input className="new-post__media-input" type="url" placeholder="Image url" onChange={this.setImageUrl} />
+                                <input className="new-post__media-input" type="url" placeholder="Image url" onChange={this.setImageUrl} value={this.state.imageUrl} />
                             </div>
                         }
                         {
                             showVideoUrl &&
                             <div className="new-post__addons-video-url">
-                                <input className="new-post__media-input" type="url" placeholder="Video url" onChange={this.setVideoUrl} />
+                                <input className="new-post__media-input" type="url" placeholder="Video url" onChange={this.setVideoUrl} value={this.state.videoUrl} />
                             </div>
                         }
                     </div>

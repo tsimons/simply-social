@@ -8,6 +8,8 @@ const OPEN_POST_MODAL = 'OPEN_POST_MODAL';
 const CLOSE_POST_MODAL = 'CLOSE_POST_MODAL';
 const SET_POST_LAYOUT = 'SET_POST_LAYOUT';
 
+let id = posts.length;
+
 export const actionConstants = {
     ADD_POST,
     LIKE_POST,
@@ -18,7 +20,14 @@ export const actionConstants = {
 };
 
 export const actions = createActions({
-    [ADD_POST]: undefined,
+    [ADD_POST]: (post) => ({
+        ...post,
+        timestamp: Date.now(),
+        likes: [],
+        replies: [],
+        location: '',
+        id: id += 1 // assignment to an existing var will return the value assigned
+    }),
     [LIKE_POST]: (postId, authorId) => ({ postId, authorId }),
     [REPLY_TO_POST]: (postId, message, author) => ({
         postId,
@@ -33,7 +42,10 @@ export const actions = createActions({
 
 const actionHandlers = {
     [ADD_POST]: (state, { payload }) => ({
-        ui: { ...state.ui },
+        ui: {
+            ...state.ui,
+            isPostModalOpen: false
+        },
         data: [
             payload,
             ...state.data

@@ -42,9 +42,13 @@ const Header = ({ profile }) => (
 
             .header__site-link:link {
                 font-size: 15px;
-                color: #262728;
                 text-decoration: none;
                 opacity: .7;
+            }
+            
+            .header__site-link:link,
+            .header__site-link:visited {
+                color: #262728;
             }
         `}</style>
     </div>

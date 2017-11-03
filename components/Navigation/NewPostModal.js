@@ -2,7 +2,7 @@ import React from 'react';
 import { node, func } from 'prop-types';
 
 import Modal from '../Modal';
-import NewPost from '../NewPost';
+import NewPost from '../../containers/NewPostContainer';
 
 const NewPostModal = ({ children, onClose }) => (
     <Modal onClose={onClose}>

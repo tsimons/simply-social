@@ -18,7 +18,7 @@ export default ({ isPostModalOpen, openPostModal, closePostModal }) => (
                 <a href="javascript:void(0)" onClick={openPostModal}><img src="/static/new-message.png" alt="new message"/></a>
             </div>
             <div className="navigation__tools__search">
-                <input type="search" className="navigation__tools__search-input" />
+                <input type="text" className="navigation__tools__search-input" />
                 <span className="navigation__tools__search-icon"><img src="/static/search-icon.png" alt=""/></span>
             </div>
 

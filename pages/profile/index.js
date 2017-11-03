@@ -11,12 +11,12 @@ import Profile from '../../layouts/Profile';
 
 import Post from '../../components/Post';
 
-const FeedView = ({ posts, profile }) => (
+const FeedView = ({ posts, profile, userId, likePost, focusPost }) => (
     <Profile profile={profile}>
         <div className="posts">
             {posts.map(p => (
                 <div className="post-container">
-                    <Post key={p.post.message} post={p.post} author={p.author} liked={p.liked} layout="list" />
+                    <Post key={p.post.message} post={p.post} author={p.author} liked={p.liked} like={likePost} layout="list" userId={userId} focusPost={focusPost} />
                 </div>
             ))}
         </div>
@@ -55,20 +55,20 @@ const FeedView = ({ posts, profile }) => (
 );
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         posts: state.posts.data.map((post) => ({
             post,
             author: getAuthor(state, post.author),
-            liked: post.likes.indexOf(state.user.profileId > -1)
+            liked: post.likes.indexOf(state.user.data.profileId) > -1
         })),
-        layout: state.posts.ui.layout,
-        profile: getAuthor(state, state.user.data.profileId)
+        profile: getAuthor(state, state.user.data.profileId),
+        userId: state.user.data.profileId
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    changeLayout: bindActionCreators(actions.setPostLayout, dispatch)
+    likePost: bindActionCreators(actions.likePost, dispatch),
+    focusPost: bindActionCreators(actions.focusPost, dispatch)
 })
 
 export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(FeedView);

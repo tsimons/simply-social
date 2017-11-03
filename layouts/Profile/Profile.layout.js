@@ -25,6 +25,7 @@ const ProfileLayout = ({ profile, children }) => {
         name: `${followingCount} following`
     }];
 
+
     return (
         <Base>
             <div className="profile-layout__header">

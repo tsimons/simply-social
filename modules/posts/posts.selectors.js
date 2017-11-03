@@ -1,0 +1,1 @@
+export const getPost = (state, id) => state.posts.data.filter((post) => post.id === id)[0];

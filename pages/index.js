@@ -10,12 +10,12 @@ import Home from '../layouts/Home';
 import Post from '../components/Post';
 
 
-const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId }) => (
+const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId, focusPost }) => (
     <Home setPostLayout={setPostLayout} layout={layout} route="All Posts" addPost={addPost}>
         <div className={`posts posts--${layout}`}>
             {posts.map(p => (
                 <div className="post__container" key={p.post.id}>
-                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} userId={userId} />
+                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} userId={userId} focusPost={focusPost} />
                 </div>
             ))}
         </div>
@@ -68,7 +68,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     likePost: bindActionCreators(actions.likePost, dispatch),
     setPostLayout: bindActionCreators(actions.setPostLayout, dispatch),
-    addPost: bindActionCreators(actions.addPost, dispatch)
+    addPost: bindActionCreators(actions.addPost, dispatch),
+    focusPost: bindActionCreators(actions.focusPost, dispatch)
 })
 
 export default withRedux(createStore, mapStateToProps, mapDispatchToProps)(allPosts);

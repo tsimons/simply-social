@@ -23,7 +23,6 @@ const Modal = ({ children, onClose }) => (
 
             .modal__shield {
                 background: rgba(0, 0, 0, .8);
-                filter: blur(5px);
                 position: absolute;
                 height: 100%;
                 width: 100%;

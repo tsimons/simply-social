@@ -36,7 +36,8 @@ export default class Post extends Component {
         liked: bool,
         like: func,
         replyToPost: func,
-        userId: number
+        userId: number,
+        focusPost: func
     };
 
     static defaultProps = {
@@ -64,7 +65,7 @@ export default class Post extends Component {
 
 
     render() {
-        const { post, author, layout, liked, like, userId } = this.props;
+        const { post, author, layout, liked, like, userId, focusPost } = this.props;
         const { expanded } = this.state;
 
         const hasReplies = post.replies && post.replies.length > 0;
@@ -103,7 +104,7 @@ export default class Post extends Component {
                     <div className="post__media">
                         {
                             post.image &&
-                            <img src={post.image} />
+                            <img src={post.image} onClick={() => layout !== STANDALONE && focusPost(post.id)} />
                         }
 
                         {
@@ -132,7 +133,7 @@ export default class Post extends Component {
                 }
                 {
                     layout === TILE &&
-                    <div className="post__controls"><Controls reply={() => { }} like={() => { }} timestamp={post.timestamp} /></div>
+                    <div className="post__controls"><Controls reply={() => { }} like={() => like(post.id, userId)} timestamp={post.timestamp} /></div>
                 }
                 {
                     expanded &&
@@ -143,12 +144,19 @@ export default class Post extends Component {
 
                 <style jsx>{`
                     .post {
+                        display: flex;
+                        flex-flow: column nowrap;
+
                         margin: 0 0 25px;
                         
                         border: 1px solid #dee1e5;
                         border-radius: 4px;
 
                         background: white;
+                    }
+
+                    .post--standalone {
+                        width: 975px;
                     }
 
                     .post--tile {
@@ -227,6 +235,31 @@ export default class Post extends Component {
                     }
 
                     .post__media {
+                        text-align: center;
+                    }
+
+                    .post__text {
+                        order: 1
+                    }
+                    .post__media {
+                        order: 2
+                    }
+                    .post__expand {
+                        order: 3
+                    }
+                    .post__replies {
+                        order: 4
+                    }
+                    .post__controls {
+                        order: 5
+                    }
+                    .post__reply-form {
+                        order: 6
+                    }
+
+                    .post--standalone .post__media {
+                        order: -1;
+                        margin: -1px -1px 0 -1px;
                         text-align: center;
                     }
 

@@ -45,6 +45,12 @@ export default class DropDown extends Component {
                         position: relative;
                     }
 
+                    .drop-down__trigger {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+
                     .drop-down__container {
                         display: none;
 
@@ -72,7 +78,7 @@ export default class DropDown extends Component {
                         transform: rotate(180deg);
 
                         position: absolute;
-                        bottom: 100%;
+                        bottom: calc(100% + 1px);
                         right: 8px;
                         
                         color: #dee1e5;

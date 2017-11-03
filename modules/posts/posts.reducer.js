@@ -7,6 +7,8 @@ const REPLY_TO_POST = 'REPLY_TO_POST';
 const OPEN_POST_MODAL = 'OPEN_POST_MODAL';
 const CLOSE_POST_MODAL = 'CLOSE_POST_MODAL';
 const SET_POST_LAYOUT = 'SET_POST_LAYOUT';
+const FOCUS_POST = 'FOCUS_POST';
+const BLUR_POST = 'BLUR_POST';
 
 let id = posts.length;
 
@@ -16,7 +18,9 @@ export const actionConstants = {
     REPLY_TO_POST,
     OPEN_POST_MODAL,
     CLOSE_POST_MODAL,
-    SET_POST_LAYOUT
+    SET_POST_LAYOUT,
+    FOCUS_POST,
+    BLUR_POST
 };
 
 export const actions = createActions({
@@ -39,7 +43,9 @@ export const actions = createActions({
     }),
     [OPEN_POST_MODAL]: undefined,
     [CLOSE_POST_MODAL]: undefined,
-    [SET_POST_LAYOUT]: undefined
+    [SET_POST_LAYOUT]: undefined,
+    [FOCUS_POST]: undefined,
+    [BLUR_POST]: undefined
 });
 
 const actionHandlers = {
@@ -123,6 +129,20 @@ const actionHandlers = {
         ui: {
             ...state.ui,
             layout: payload
+        },
+        data: [ ...state.data ]
+    }),
+    [FOCUS_POST]: (state, { payload }) => ({
+        ui: {
+            ...state.ui,
+            focusedPost: payload
+        },
+        data: [ ...state.data ]
+    }),
+    [BLUR_POST]: (state) => ({
+        ui: {
+            ...state.ui,
+            focusedPost: null
         },
         data: [ ...state.data ]
     })

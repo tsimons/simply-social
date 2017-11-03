@@ -3,6 +3,7 @@ import { node }  from 'prop-types';
 import Navigation from '../../containers/NavigationContainer';
 import Footer from '../../components/Footer';
 import Head from 'next/head';
+import PostModal from '../../containers/PostModalContainer';
 
 const BaseLayout =  ({ children }) => (
     <div className="base-layout">
@@ -22,6 +23,8 @@ const BaseLayout =  ({ children }) => (
         <div className="base-layout__footer">
             <Footer />
         </div>
+
+        <PostModal />
 
         <style jsx global>{`
             body,

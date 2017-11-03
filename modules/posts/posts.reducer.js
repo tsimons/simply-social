@@ -3,7 +3,7 @@ import posts from '../../mockPosts';
 
 const ADD_POST = 'ADD_POST';
 const LIKE_POST = 'LIKE_POST';
-const REPLY_TO_POST = 'LIKE_POST';
+const REPLY_TO_POST = 'REPLY_TO_POST';
 const OPEN_POST_MODAL = 'OPEN_POST_MODAL';
 const CLOSE_POST_MODAL = 'CLOSE_POST_MODAL';
 const SET_POST_LAYOUT = 'SET_POST_LAYOUT';
@@ -28,7 +28,9 @@ export const actions = createActions({
         location: '',
         id: id += 1 // assignment to an existing var will return the value assigned
     }),
-    [LIKE_POST]: (postId, authorId) => ({ postId, authorId }),
+    
+    [LIKE_POST]: (postId, userId) => ({ postId, userId }),
+
     [REPLY_TO_POST]: (postId, message, author) => ({
         postId,
         message,
@@ -56,11 +58,22 @@ const actionHandlers = {
         ui: { ...state.ui },
         data: state.data.map((p) => {
             if (p.id === payload.postId) {
+                const index = p.likes.indexOf(payload.userId);
+                if (index > -1) {
+                    return {
+                        ...p,
+                        likes: [
+                            ...p.likes.slice(0, index),
+                            ...p.likes.slice(index + 1)
+                        ]
+                    };
+                }
+                
                 return {
                     ...p,
                     likes: [
                         ...p.likes,
-                        payload.authorId
+                        payload.userId
                     ]
                 };
             }

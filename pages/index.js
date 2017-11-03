@@ -10,12 +10,12 @@ import Home from '../layouts/Home';
 import Post from '../components/Post';
 
 
-const allPosts = ({ layout, posts, likePost, setPostLayout, addPost }) => (
+const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId }) => (
     <Home setPostLayout={setPostLayout} layout={layout} route="All Posts" addPost={addPost}>
         <div className={`posts posts--${layout}`}>
             {posts.map(p => (
                 <div className="post__container" key={p.post.id}>
-                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} />
+                    <Post post={p.post} author={p.author} liked={p.liked} layout={layout} like={likePost} userId={userId} />
                 </div>
             ))}
         </div>
@@ -58,9 +58,10 @@ const mapStateToProps = (state) => {
         posts: state.posts.data.map((post) => ({
             post,
             author: getAuthor(state, post.author),
-            liked: post.likes.indexOf(state.user.profileId) > -1
+            liked: post.likes.indexOf(state.user.data.profileId) > -1
         })),
-        layout: state.posts.ui.layout
+        layout: state.posts.ui.layout,
+        userId: state.user.data.profileId
     }
 };
 

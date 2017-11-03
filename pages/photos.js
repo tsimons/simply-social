@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
         posts: state.posts.data.filter(p => p.image).map((post) => ({
             post,
             author: getAuthor(state, post.author),
-            liked: post.likes.indexOf(state.user.profileId) > -1
+            liked: post.likes.indexOf(state.user.data.profileId) > -1
         }))
     }
 };

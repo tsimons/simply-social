@@ -30,12 +30,13 @@ export default class Post extends Component {
         author: shape({
             name: string,
             image: string,
-            isMe: bool
+            id: number
         }),
         layout: oneOf([LIST, TILE, STANDALONE]),
         liked: bool,
-        likePost: func,
-        replyToPost: func
+        like: func,
+        replyToPost: func,
+        userId: number
     };
 
     static defaultProps = {
@@ -61,10 +62,9 @@ export default class Post extends Component {
         this.refs.reply.focus();
     }
 
-    
 
     render() {
-        const { post, author, layout, liked } = this.props;
+        const { post, author, layout, liked, like, userId } = this.props;
         const { expanded } = this.state;
 
         const hasReplies = post.replies && post.replies.length > 0;
@@ -83,7 +83,7 @@ export default class Post extends Component {
                             </div>
                             {
                                 (layout === LIST || layout === STANDALONE) &&
-                                <div className="post__controls"><Controls reply={() => {}} like={() => {}} timestamp={post.timestamp} /></div>
+                                <div className="post__controls"><Controls reply={() => { }} like={() => like(post.id, userId)} timestamp={post.timestamp} /></div>
                             }
                         </div>
 
@@ -219,6 +219,7 @@ export default class Post extends Component {
 
                         font-size: 12px;
                         color: #00b286;
+                        margin: 26px 0 0;
                     }
 
                     .post__liked img {
@@ -227,6 +228,10 @@ export default class Post extends Component {
 
                     .post__media {
                         text-align: center;
+                    }
+
+                    .post__media :global(video) {
+                        width: 100%;
                     }
                 `}</style>
             </div>

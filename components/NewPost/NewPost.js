@@ -163,7 +163,7 @@ export default class NewPost extends Component {
 
                     .new-post__text-container {
                         flex: 1;
-                        margin-bottom: 12px;
+                        margin-bottom: 37px;
                     }
 
                     .new-post__text {

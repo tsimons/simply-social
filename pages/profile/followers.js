@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import Head from 'next/head';
 
 import createStore from '../../modules/store';
 import { getAuthor } from '../../modules/profile/profile.selectors';
@@ -12,6 +13,9 @@ import ProfileSummary from '../../components/ProfileSummary';
 const FollowersView = ({ userProfile, profiles }) => {
     return (
         <Profile profile={userProfile}>
+            <Head>
+                <title>simplysocial | {userProfile.name}'s Followers</title>
+            </Head>
             <div className="posts">
                 {profiles.map((p) => <ProfileSummary key={p.id} profile={p} />)}
             </div>

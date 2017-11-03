@@ -1,6 +1,7 @@
 import react from 'react';
 import withRedux from 'next-redux-wrapper';
 import { bindActionCreators } from 'redux';
+import Head from 'next/head';
 
 import createStore from '../modules/store';
 import { actions } from '../modules/posts';
@@ -12,6 +13,9 @@ import Post from '../components/Post';
 
 const allPosts = ({ layout, posts, likePost, setPostLayout, addPost, userId, focusPost }) => (
     <Home setPostLayout={setPostLayout} layout={layout} route="All Posts" addPost={addPost}>
+        <Head>
+            <title>simplysocial | All Posts</title>
+        </Head>
         <div className={`posts posts--${layout}`}>
             {posts.map(p => (
                 <div className="post__container" key={p.post.id}>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
+import Head from 'next/head';
 
 import createStore from '../../modules/store';
 import { getAuthor } from '../../modules/profile/profile.selectors';
@@ -29,6 +30,9 @@ const Settings = ({
     setCustomAds
 }) => (
     <Base>
+        <Head>
+            <title>simplysocial | Settings</title>
+        </Head>
         <div className="settings">
             <h1>Settings</h1>
 

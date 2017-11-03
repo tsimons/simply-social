@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
 import { bindActionCreators } from 'redux';
+import Head from 'next/head';
 
 import createStore from '../../modules/store';
 import { actions } from '../../modules/posts';
@@ -13,6 +14,9 @@ import Post from '../../components/Post';
 
 const FeedView = ({ posts, profile, userId, likePost, focusPost }) => (
     <Profile profile={profile}>
+        <Head>
+            <title>simplysocial | {profile.name}'s Feed</title>
+        </Head>
         <div className="posts">
             {posts.map(p => (
                 <div className="post-container">

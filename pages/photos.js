@@ -1,6 +1,7 @@
 import react from 'react';
 import withRedux from 'next-redux-wrapper';
 import { bindActionCreators } from 'redux';
+import Head from 'next/head';
 
 import createStore from '../modules/store';
 import { actions } from '../modules/posts';
@@ -12,6 +13,9 @@ import Post from '../components/Post';
 
 const Photos = ({ posts, likePost, focusPost, userId }) => (
     <Home route="Photos">
+        <Head>
+            <title>simplysocial | Image Posts</title>
+        </Head>
         <div className={`posts posts--tile`}>
             {posts.map(p => (
                 <div className="post__container" key={p.post.id}>

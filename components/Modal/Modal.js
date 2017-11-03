@@ -3,7 +3,7 @@ import { node, func } from 'prop-types';
 
 const Modal = ({ children, onClose }) => (
     <div className="modal">
-        <div className="modal__shield"></div>
+        <div className="modal__shield" onClick={onClose}></div>
         <div className="modal__container">
             <div className="modal__content">
                 <a href="javascript:void(0)" className="modal__close-btn" onClick={onClose}>&#215;</a>
